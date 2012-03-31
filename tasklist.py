@@ -15,8 +15,11 @@ class TaskList(webapp.RequestHandler):
         for a in tasks:
 
             queue = a.queue
+            done = a.done
             if queue is None:
                 queue = 0
+            if done is None:
+                done = False
             blank.append({
                 'key':str(a.key()),
                 'title': a.title,
@@ -25,8 +28,9 @@ class TaskList(webapp.RequestHandler):
                 'due': a.due,
                 'assigner': a.assigner,
                 'assignee': a.assignee,
-                'done': a.done,
+                'done': done,
                 'queue': queue})
 
         self.response.headers['Content-type'] = 'text/json'
         self.response.out.write(json.dumps(blank))
+

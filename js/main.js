@@ -48,15 +48,18 @@
             this.key = data.key;
             var td1 = $('<td>').attr('width', '30%');
             td1.append($('<span class="badge">'+data.queue+'</span>'));
-            td1.append($('<span style="margin-left:2px;margin-right:2px" class="toggle">' + data['title'] + '</span>'));
+            var title = data.done?'<s>'+data['title']+'</s>':data['title'];
+            td1.append($('<span style="margin-left:2px;margin-right:2px" class="toggle">' + title + '</span>'));
             td1.append($('<i class="icon-ok toggle" style="display:none;float:right;">'));
 
             var td2 = $('<td>').attr('width', '70%');
             var boxes = $('<table width="100%" boder="0">').append($('<tr>'));
             var portion = 100/max;
             for(var j=0;j<max;j++) {
-                if(j==idx) {
-                    var color = '#'+Math.floor(Math.random()*(0xFFFFFF+1)<<0).toString(16);
+                if(j==idx && data.done !=true) {
+                    var num = Math.floor(Math.random()*(0xFFFFFF+1)<<0).toString(16);
+                    while(num.length<=5) num = '0'+num;
+                    var color = '#'+ num;
                     boxes.append('<td boder="0" width="'+portion+'%" style="background-color:'+color+';border:none"> </td>');
                 } else {
                     boxes.append('<td boder="0" width="'+portion+'%" style="border:none;"> </td>');
@@ -66,6 +69,11 @@
             td2.append(boxes);
             $(this.el).append(td1);
             $(this.el).append(td2);
+            if(data.done) {
+                $(this.el).find('span').each(function() {
+                    $(this).parent().append($('<s>').append($(this)));
+                });
+            }
             return this;
         },
         showToggle: function() {
@@ -76,12 +84,8 @@
         },
         toggleDone: function() {
             var self = this;
-            $(this.el).find('span').each(function() {
-                $(this).parent().append($('<s>').append($(this)));
-            });
             $.getJSON('/del?key=' + self.key, function(data) {
-                alert('hh');
-                ganttChart.retrieve();
+                ganttChart.render();
             });
         }
     });
@@ -125,7 +129,7 @@
                 task_view = new TaskView;
                 var max = 0, idx = 0;
                 for(var j=0;j<data.length;j++) {
-                    if(data[i].queue==data[j].queue) {
+                    if(data[j].done!=true && data[i].queue==data[j].queue) {
                         max++;
                         if(j<i)
                             idx++;

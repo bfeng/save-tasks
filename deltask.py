@@ -1,4 +1,5 @@
 import os
+import json
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
@@ -11,5 +12,10 @@ class DelTaskPage(webapp.RequestHandler):
     def get(self):
         key = self.request.get('key')
         one=db.get(key)
-        one.done = True
-        self.response.out.write("{'deleted':'true'}")
+        if one.done:
+            one.done = False
+        else:
+            one.done = True
+        one.put()
+        self.response.headers['Content-type'] = 'text/json'
+        self.response.out.write(json.dumps({'success':True}))
