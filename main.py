@@ -19,6 +19,7 @@ class MainPage(webapp.RequestHandler):
             name = 'Sign in'
 
 
+#        name=''
         logout = users.create_logout_url("/")
         template_values = {'Username':name, 'Logout':logout}
         path = os.path.join(os.path.dirname(__file__), 'main.html')
