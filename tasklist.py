@@ -21,7 +21,7 @@ class TaskList(webapp.RequestHandler):
                 'due': a.due,
                 'assigner': a.assigner,
                 'assignee': a.assignee,
-                'priority': a.priority})
+                'queue': a.queue})
 
         self.response.headers['Content-type'] = 'text/json'
         self.response.out.write(json.dumps(blank))
