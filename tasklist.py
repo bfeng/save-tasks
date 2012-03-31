@@ -7,15 +7,18 @@ class TaskList(webapp.RequestHandler):
 
     def get(self):
         tasks = db.GqlQuery("SELECT * FROM Task")
+
+        blank = []
+
         for a in tasks:
-            blank = []
 
-            blank.append(a.title)
-            blank.append(a.desc)
-            blank.append(a.start)
-            blank.append(a.due)
-            blank.append(a.assigner)
-            blank.append(a.assignee)
+            blank.append({
+                'title': a.title,
+                'desc': a.desc,
+                'start': a.start,
+                'due': a.due,
+                'assigner': a.assigner,
+                'assignee': a.assignee})
 
-            self.response.out.write(json.dumps(blank))
-            self.response.out.write("<br />")
+        self.response.headers['Content-type'] = 'text/json'
+        self.response.out.write(json.dumps(blank))
