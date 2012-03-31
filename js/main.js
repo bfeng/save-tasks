@@ -28,6 +28,7 @@
         }
     });
 
+/*
     var GanttChart = Backbone.View.extend({
         el: $('#gantt-chart'),
         initialize: function() {
@@ -40,10 +41,29 @@
             $(this.el).append(html);
         }
     });
+*/
 
     var navBar = new NavBar();
     var listView = new ListView();
-    var ganttChart = new GanttChart();
+
+    jQuery("#gantt-chart").gantt({
+        source: "js/data.json",
+        itemsPerPage: 50,
+        months: [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"],
+        dow: ["S", "M", "T", "W", "Th", "F", "Sa"],
+        navigate: 'scroll',
+        scale: 'hours',
+        maxScale: 'days',
+        minScale: 'hours',
+        holidays: [
+            "\/Date(1293836400000)\/",
+            "\/Date(1351724400000)\/"
+        ]
+    });
 
     $('.dropdown-toggle').dropdown(); 
 })(jQuery);
