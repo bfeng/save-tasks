@@ -19,6 +19,6 @@ class AddTaskPage(webapp.RequestHandler):
                 due=self.request.get("Due"),
                 assigner=self.request.get("Assigner"),
                 assignee=self.request.get("Assignee"),
-                priority=self.request.get("Priority"))
+                priority=int(self.request.get("Priority")))
         temp.put()
         self.redirect('/#gantt')
