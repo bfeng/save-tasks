@@ -26,7 +26,7 @@
     });
 
     var TaskView = Backbone.View.extend({
-        tagName: "td",
+        tagName: "tr",
         events: {
             "click .toggle" : "toggleDone",
             "mouseover":"showToggle",
@@ -34,18 +34,34 @@
         },
         initialize: function() {
         },
-        render:function(data) {
-            $(this.el).attr('width', '30%');
-            $(this.el).append($('<span class="badge">'+data.priority+'</span>'));
-            $(this.el).append($('<span style="margin-left:2px;margin-right:2px" class="toggle">' + data['title'] + '</span>'));
-            $(this.el).append($('<i class="icon-ok" style="display:none;float:right;">'));
+        render:function(data, max, idx) {
+            var td1 = $('<td>').attr('width', '30%');
+            td1.append($('<span class="badge">'+data.priority+'</span>'));
+            td1.append($('<span style="margin-left:2px;margin-right:2px" class="toggle">' + data['title'] + '</span>'));
+            td1.append($('<i class="icon-ok" style="display:none;float:right;">'));
+
+            var td2 = $('<td>').attr('width', '70%');
+            var boxes = $('<table width="100%" boder="0">').append($('<tr>'));
+            var portion = 100/max;
+            for(var j=0;j<max;j++) {
+                if(j==idx) {
+                    var color = '#'+Math.floor(Math.random()*(0xFFFFFF+1)<<0).toString(16);
+                    boxes.append('<td boder="0" width="'+portion+'%" style="background-color:'+color+';border:none"> </td>');
+                } else {
+                    boxes.append('<td boder="0" width="'+portion+'%" style="border:none;"> </td>');
+                }
+            }
+
+            td2.append(boxes);
+            $(this.el).append(td1);
+            $(this.el).append(td2);
             return this;
         },
         showToggle: function() {
-            $(this.el).children('i').each(function() { $(this).show();});
+            $(this.el).find('i').each(function() { $(this).show();});
         },
         muteToggle: function() {
-            $(this.el).children('i').each(function() { $(this).hide();});
+            $(this.el).find('i').each(function() { $(this).hide();});
         },
         toggleDone: function() {
             alert('click');
@@ -76,8 +92,6 @@
             }
             $(this.el).empty();
             var top_row = $('<div class="row">');
-            //top_row.append($('<button class="span2 btn btn-mini btn-primary">').append('Add Task'));
-            
 
             var progress = $('<div class="span12 progress">');
             progress.append($('<div class="bar" style="width: 60%">'));
@@ -88,23 +102,15 @@
             template.append($('<tr>').append('<th>Title</th>').append('<th>Timeline</th>'));
             for(var i=0;i<data.length;i++) {
                 task_view = new TaskView;
-                var row = $('<tr>').append(task_view.render(data[i]).el);
-                var line = $('<td width="70%">');
-                
-                var boxes = $('<table width="100%" boder="0">').append($('<tr>'));
-                
-                var potion = 100/data.length;
+                var max = 0, idx = 0;
                 for(var j=0;j<data.length;j++) {
-                    if(j==i) {
-                        var color = '#'+Math.floor(Math.random()*(0xFFFFFF+1)<<0).toString(16);
-                        boxes.append('<td boder="0" width="'+potion+'%" style="background-color:'+color+';border:none"> </td>');
-                    } else {
-                        boxes.append('<td boder="0" width="'+potion+'%" style="border:none;"> </td>');
+                    if(data[i].priority==data[j].priority) {
+                        max++;
+                        if(j<i)
+                            idx++;
                     }
                 }
-
-                line.append(boxes);
-                row.append(line);
+                var row = task_view.render(data[i], max, idx).el;
                 template.append(row);
             }
             $(this.el).append(top_row).append(template);
