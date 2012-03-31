@@ -20,3 +20,4 @@ class AddTaskPage(webapp.RequestHandler):
                 assigner=self.request.get("Assigner"),
                 assignee=self.request.get("Assignee"))
         temp.put()
+        self.redirect('/#gantt')
