@@ -50,12 +50,12 @@
           <li><a href="#grid">Grid View</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
-          <form class="navbar-search">
-              <input type="text" class="search-query" placeholder="Search">
+          <form class="navbar-search" action="/search" method="post">
+              <input type="text" class="search-query" placeholder="Search" name="query">
           </form>
         </ul>
         <ul class="nav pull-right">
-          <li><a href="/addTask">Add Task</a></li>
+          <li class="active"><a href="#addTask">Add Task</a></li>
 	  <li class="dropdown" id="User Menu">
 	      <a class="dropdown-toggle pull-right" data-toggle="dropdown" href="#User Menu">
                   {{Username}}
@@ -93,6 +93,20 @@
           <li><a href="#">Link</a></li>
         </ul>
     </div>
+</script>
+<script type="text/template" id="addtask_template">
+
+<div class="container">
+<form action="/addTask" method="post">
+Title <input type="text" name="Title"/><br />
+Description <input type="text" name="Description"/><br />
+Start <input type="datetime" name="Start"/><br />
+Due <input type="datetime" name="Due"/><br />
+Assigner <input type="text" name="Assigner"/><br />
+Assignee <input type="text" name="Assignee"/><br />
+<input type="submit" value="Submit" />
+</form>
+</div>
 </script>
 <div class="container" id="gantt-chart">
 <!--
