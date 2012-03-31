@@ -1,4 +1,6 @@
+import datetime
 from google.appengine.ext import db
+from google.appengine.api import users
 
 class Task(db.Model):
     title = db.StringProperty(required=True)
@@ -8,3 +10,8 @@ class Task(db.Model):
     due = db.DateTimeProperty(required=True)
     assigner = db.StringProperty()
     assignee = db.StringProperty()
+
+class User(db.Model):
+
+    username = db.StringProperty(required=True)
+    email = db.StringProperty(required=True)
