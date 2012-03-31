@@ -36,7 +36,7 @@
         },
         render:function(data) {
             $(this.el).attr('width', '30%');
-            $(this.el).append($('<span class="badge">'+data.piority+'</span>'));
+            $(this.el).append($('<span class="badge">'+data.priority+'</span>'));
             $(this.el).append($('<span style="margin-left:2px;margin-right:2px" class="toggle">' + data['title'] + '</span>'));
             $(this.el).append($('<i class="icon-ok" style="display:none;float:right;">'));
             return this;
