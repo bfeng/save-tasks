@@ -9,11 +9,7 @@ from models import Task
 class DelTaskPage(webapp.RequestHandler):
 
     def get(self):
-
-        delQueue=db.GqlQuery("SELECT * FROM DelKey")
-        id=self.request
-
-    def post(self):
-
-        key=db.get(id)
-        key.done=True
+        key = self.request.get('key')
+        one=db.get(key)
+        one.done=True
+        self.response.out.write("{'deleted':'true'}")

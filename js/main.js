@@ -36,6 +36,7 @@
 
     var TaskView = Backbone.View.extend({
         tagName: "tr",
+        key:'',
         events: {
             "click .toggle" : "toggleDone",
             "mouseover":"showToggle",
@@ -44,6 +45,7 @@
         initialize: function() {
         },
         render:function(data, max, idx) {
+            this.key = data.key;
             var td1 = $('<td>').attr('width', '30%');
             td1.append($('<span class="badge">'+data.queue+'</span>'));
             td1.append($('<span style="margin-left:2px;margin-right:2px" class="toggle">' + data['title'] + '</span>'));
@@ -73,11 +75,13 @@
             $(this.el).find('i').each(function() { $(this).hide();});
         },
         toggleDone: function() {
+            var self = this;
             $(this.el).find('span').each(function() {
                 $(this).parent().append($('<s>').append($(this)));
             });
-            $.getJSON('/del', funtion(data) {
-                ganttChart.render();
+            $.getJSON('/del?key=' + self.key, function(data) {
+                alert('hh');
+                ganttChart.retrieve();
             });
         }
     });

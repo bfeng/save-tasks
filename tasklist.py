@@ -18,6 +18,7 @@ class TaskList(webapp.RequestHandler):
             if queue is None:
                 queue = 0
             blank.append({
+                'key':str(a.key()),
                 'title': a.title,
                 'desc': a.desc,
                 'start': a.start,
