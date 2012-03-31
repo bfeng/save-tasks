@@ -12,15 +12,16 @@ class MainPage(webapp.RequestHandler):
 	if user:
 
             name = user.nickname()
+	    options = users.create_logout_url("/")
 
 
         else:
 
             name = 'Sign in'
+	    options = users.create_login_url(self.request.uri)
 
 
-        logout = users.create_logout_url("/")
-        template_values = {'Username':name, 'Logout':logout}
+        template_values = {'Username':name, 'Options':options}
         path = os.path.join(os.path.dirname(__file__), 'main.html')
         self.response.out.write(template.render(path, template_values))
 
