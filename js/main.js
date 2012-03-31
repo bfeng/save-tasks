@@ -7,7 +7,8 @@
         },
         
         render: function() {
-            $(this.el).append('');
+            var template = _.template($("#navbar_template").html(),{});
+            $(this.el).append(template);
         }
     });
 
