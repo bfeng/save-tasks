@@ -25,6 +25,15 @@
         }
     });
 
+    var ProgressBar = Backbone.View.extend({
+        tagName: 'div',
+        initialize: function() {},
+        render: function(howmanydone, max) {
+            $(this.el).append($('<div class="span12 progress">').append($('<div class="bar">').css( "width", howmanydone/max*100 + '%').show('slow')));
+            return this;
+        }
+    });
+
     var TaskView = Backbone.View.extend({
         tagName: "tr",
         events: {
@@ -38,7 +47,7 @@
             var td1 = $('<td>').attr('width', '30%');
             td1.append($('<span class="badge">'+data.queue+'</span>'));
             td1.append($('<span style="margin-left:2px;margin-right:2px" class="toggle">' + data['title'] + '</span>'));
-            td1.append($('<i class="icon-ok" style="display:none;float:right;">'));
+            td1.append($('<i class="icon-ok toggle" style="display:none;float:right;">'));
 
             var td2 = $('<td>').attr('width', '70%');
             var boxes = $('<table width="100%" boder="0">').append($('<tr>'));
@@ -64,7 +73,12 @@
             $(this.el).find('i').each(function() { $(this).hide();});
         },
         toggleDone: function() {
-            alert('click');
+            $(this.el).find('span').each(function() {
+                $(this).parent().append($('<s>').append($(this)));
+            });
+            $.getJSON('/del', funtion(data) {
+                ganttChart.render();
+            });
         }
     });
 
@@ -93,10 +107,12 @@
             $(this.el).empty();
             var top_row = $('<div class="row">');
 
-            var progress = $('<div class="span12 progress">');
-            progress.append($('<div class="bar" style="width: 60%">'));
-
-            top_row.append(progress);
+            var howmanydone = 0;
+            for(var i=0;i<data.length;i++) {
+                if(data[i].done) howmanydone++;
+            }
+            var progress = new ProgressBar;
+            top_row.append(progress.render(howmanydone, data.length).el);
 
             var template = $('<table class="table table-bordered">');
             template.append($('<tr>').append('<th>Title</th>').append('<th>Timeline</th>'));
