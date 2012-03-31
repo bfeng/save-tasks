@@ -79,6 +79,7 @@
         },
         
         render: function() {
+            $(this.el).empty();
             var template = _.template($("#addtask_template").html(),{});
             $(this.el).append(template);
         }
@@ -93,8 +94,8 @@
         ganttChartShow: function() {
             ganttChart.render();
         },
-        addTask: function() {
-            alert('Add Task');
+        addTaskShow: function() {
+            addTask.render();
         }
     });
 
