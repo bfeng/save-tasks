@@ -11,3 +11,8 @@ class AddUserPage(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(__file__), 'adduser.html')
         template_values = {}
         self.response.out.write(template.render(path, template_values))
+
+    def post(self):
+        temp = Task(username=self.request.get("Username"),
+                email=self.request.get("Email"))
+        temp.put()

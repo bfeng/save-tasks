@@ -23,10 +23,9 @@ class MainPage(webapp.RequestHandler):
 
             name = 'Sign in' 
 
-            logout = users.create_logout_url("/")
-            template_values = {'Username':name, 'Logout':logout}
-            path = os.path.join(os.path.dirname(__file__), 'main.html')
-            self.response.out.write(template.render(path, template_values))
+        template_values = {'Username':name, 'Logout':name}
+        path = os.path.join(os.path.dirname(__file__), 'main.html')
+        self.response.out.write(template.render(path, template_values))
 
     def post(self):
         self.get()
@@ -35,6 +34,7 @@ application = webapp.WSGIApplication([('/', MainPage),
                                       ('/addTask', AddTaskPage),
                                       ('/addUser', AddUserPage),
                                       ('/about', About),
+                                      ('/logout', About),
                                       ('/contact', Contact)],
             debug=True)
 

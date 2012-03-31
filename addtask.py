@@ -8,8 +8,15 @@ from models import Task
 
 class AddTaskPage(webapp.RequestHandler):
     def get(self):
-        #<input name="subscribe" type="checkbox" value="yes />
-        subscribe_to_newsletter = self.request.get("subscribe", default_value="no")
         path = os.path.join(os.path.dirname(__file__), 'addtask.html')
         template_values = {}
         self.response.out.write(template.render(path, template_values))
+
+    def post(self):
+        temp = Task(title=self.request.get("Title"),
+                desc=self.request.get("Description"),
+                start=self.request.get("Start"),
+                due=self.request.get("Due"),
+                assigner=self.request.get("Assigner"),
+                assignee=self.request.get("Assignee"))
+        temp.put()

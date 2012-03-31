@@ -36,11 +36,11 @@
 <script src="bootstrap/js/bootstrap-dropdown.js"></script>
 <script src="js/main.js" type="text/javascript"></script>
 
-<form action="add_task.asp">
+<form action="/addTask" method="post">
 Title <input type="text" name="Title"/><br />
 Description <input type="text" name="Description"/><br />
-Start <input type="text" name="Start"/><br />
-Due <input type="text" name="Due"/><br />
+Start <input type="datetime" name="Start"/><br />
+Due <input type="datetime" name="Due"/><br />
 Assigner <input type="text" name="Assigner"/><br />
 Assignee <input type="text" name="Assignee"/><br />
 <input type="submit" value="Submit" />
