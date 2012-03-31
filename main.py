@@ -8,6 +8,7 @@ from addtask import AddTaskPage
 from adduser import AddUserPage
 from info import About
 from info import Contact
+from tasklist import TaskList
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -35,7 +36,9 @@ application = webapp.WSGIApplication([('/', MainPage),
                                       ('/addUser', AddUserPage),
                                       ('/about', About),
                                       ('/logout', About),
-                                      ('/contact', Contact)], debug=True)
+                                      ('/contact', Contact),
+                                      ('/tasks', TaskList)],
+                                      debug=True)
 
 def main():
     run_wsgi_app(application)

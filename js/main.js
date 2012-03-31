@@ -91,6 +91,7 @@
         },
         
         render: function() {
+            $(this.el).empty();
             var template = _.template($("#addtask_template").html(),{});
             $(this.el).append(template);
         }
@@ -100,7 +101,7 @@
     var AppRouter = Backbone.Router.extend({
         routes: {
             "gantt":"ganttChartShow",
-            "add":"addTask"
+            "add":"addTaskShow"
         },
         ganttChartShow: function() {
             $('a[href="#add"]').parent().removeClass();
@@ -108,7 +109,7 @@
             $('#add-task-page').empty();
             ganttChart.render();
         },
-        addTask: function() {
+        addTaskShow: function() {
             $('a[href="#gantt"]').parent().removeClass();
             $('a[href="#add"]').parent().addClass('active');
             $('#gantt-chart').empty();
