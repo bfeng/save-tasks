@@ -67,12 +67,23 @@
         }
     });
 
-    var ganttChart = new GanttChart();
-
-    var navBar = new NavBar();
     //var listView = new ListView();
 
     $('.dropdown-toggle').dropdown(); 
+
+    var AddTask = Backbone.View.extend({
+        el: $('div'),
+        initialize: function() {
+            _.bindAll(this, 'render');
+            this.render();
+        },
+        
+        render: function() {
+            var template = _.template($("#addtask_template").html(),{});
+            $(this.el).append(template);
+        }
+    });
+
 
     var AppRouter = Backbone.Router.extend({
         routes: {
@@ -91,6 +102,10 @@
         }
     });
 
+    var navBar = new NavBar();
+    var ganttChart = new GanttChart();
+    var addTask = new AddTask();
     var app_router = new AppRouter;
+
     Backbone.history.start();
 })(jQuery);
