@@ -4,10 +4,10 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-from models import Task
-
 from addtask import AddTaskPage
 from adduser import AddUserPage
+from info import About
+from info import Contact
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -33,7 +33,9 @@ class MainPage(webapp.RequestHandler):
 
 application = webapp.WSGIApplication([('/', MainPage),
                                       ('/addTask', AddTaskPage),
-                                      ('/addUser', AddUserPage)],
+                                      ('/addUser', AddUserPage),
+                                      ('/about', About),
+                                      ('/contact', Contact)],
             debug=True)
 
 def main():
