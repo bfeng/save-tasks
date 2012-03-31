@@ -80,9 +80,13 @@
             "add":"addTask"
         },
         ganttChartShow: function() {
+            $('a[href="#add"]').parent().removeClass();
+            $('a[href="#gantt"]').parent().addClass('active');
             ganttChart.render();
         },
         addTask: function() {
+            $('a[href="#gantt"]').parent().removeClass();
+            $('a[href="#add"]').parent().addClass('active');
             alert('Add Task');
         }
     });
