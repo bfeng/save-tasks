@@ -8,7 +8,7 @@ from google.appengine.api import users
 class TaskList(webapp.RequestHandler):
 
     def get(self):
-        tasks = db.GqlQuery("SELECT * FROM Task ORDER BY priority")
+        tasks = db.GqlQuery("SELECT * FROM Task ORDER BY queue")
 
         blank = []
 
