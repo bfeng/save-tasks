@@ -12,6 +12,7 @@ class Task(db.Model):
 #    due = db.DateTimeProperty(required=True)
     assigner = db.StringProperty()
     assignee = db.StringProperty()
+    priority = db.IntegerProperty()
     done = db.BooleanProperty(False)
 
 class User(db.Model):

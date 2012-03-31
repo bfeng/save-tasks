@@ -25,6 +25,33 @@
         }
     });
 
+    var TaskView = Backbone.View.extend({
+        tagName: "td",
+        events: {
+            "click .toggle" : "toggleDone",
+            "mouseover":"showToggle",
+            "mouseout":"muteToggle"
+        },
+        initialize: function() {
+        },
+        render:function(data) {
+            $(this.el).attr('width', '30%');
+            $(this.el).append($('<span class="badge">'+data.piority+'</span>'));
+            $(this.el).append($('<span style="margin-left:2px;margin-right:2px" class="toggle">' + data['title'] + '</span>'));
+            $(this.el).append($('<i class="icon-ok" style="display:none;float:right;">'));
+            return this;
+        },
+        showToggle: function() {
+            $(this.el).children('i').each(function() { $(this).show();});
+        },
+        muteToggle: function() {
+            $(this.el).children('i').each(function() { $(this).hide();});
+        },
+        toggleDone: function() {
+            alert('click');
+        }
+    });
+
     var GanttChart = Backbone.View.extend({
         el: $('#gantt-chart'),
         initialize: function() {
@@ -33,12 +60,11 @@
     
         retrieve: function() {
             var self = this;
-            $.getJSON('/js/data.json', function(data) {
+            $.getJSON('/tasks', function(data) {
                 var items= [];
                 $.each(data, function(key, val) {
                     items.push(key + ':' + val);
                 });
-                alert(items);
                 self.render(data);
             });
         },
@@ -60,18 +86,20 @@
 
             var template = $('<table class="table table-bordered">');
             template.append($('<tr>').append('<th>Title</th>').append('<th>Timeline</th>'));
-            for(var i=0;i<10;i++) {
-                var row = $('<tr>').append('<td width="30%"><span class="badge">'+i+'</span></td>');
+            for(var i=0;i<data.length;i++) {
+                task_view = new TaskView;
+                var row = $('<tr>').append(task_view.render(data[i]).el);
                 var line = $('<td width="70%">');
                 
                 var boxes = $('<table width="100%" boder="0">').append($('<tr>'));
                 
-                for(var j=0;j<10;j++) {
+                var potion = 100/data.length;
+                for(var j=0;j<data.length;j++) {
                     if(j==i) {
                         var color = '#'+Math.floor(Math.random()*(0xFFFFFF+1)<<0).toString(16);
-                        boxes.append('<td boder="0" width="10%" style="background-color:'+color+';border:none"> </td>');
+                        boxes.append('<td boder="0" width="'+potion+'%" style="background-color:'+color+';border:none"> </td>');
                     } else {
-                        boxes.append('<td boder="0" width="10%" style="border:none;"> </td>');
+                        boxes.append('<td boder="0" width="'+potion+'%" style="border:none;"> </td>');
                     }
                 }
 
