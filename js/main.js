@@ -20,12 +20,8 @@
         },
         
         render: function() {
-            var html = '<div style="padding: 8px 0;" class="well"><ul class="nav nav-list">';
-            for(var i=0;i<3;i++) {
-                html += '<li class="' + (i==0?'active':'') +'"><a href="#"><i class="icon-home icon-white"></i> Home</a></li>';
-            }
-            
-            $(this.el).append(html);
+            var template = _.template($("#listview_template").html(),{});
+            $(this.el).append(template);
         }
     });
 
