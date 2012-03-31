@@ -87,6 +87,7 @@
     });
 
     var GanttChart = Backbone.View.extend({
+
         el: $('#gantt-chart'),
         initialize: function() {
             _.bindAll(this, 'render');

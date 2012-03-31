@@ -11,5 +11,5 @@ class DelTaskPage(webapp.RequestHandler):
     def get(self):
         key = self.request.get('key')
         one=db.get(key)
-        one.done=True
+        one.done = True
         self.response.out.write("{'deleted':'true'}")
