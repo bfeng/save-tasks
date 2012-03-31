@@ -42,26 +42,28 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="#">Save Tasks</a>
+      <a class="brand" href="/">Save Tasks</a>
       <div class="nav-collapse">
         <ul class="nav">
           <li><a href="#">Overview</a></li>
           <li class="active"><a href="#gantt">Gantt Chart</a></li>
           <li><a href="#grid">Grid View</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
           <form class="navbar-search">
               <input type="text" class="search-query" placeholder="Search">
           </form>
         </ul>
         <ul class="nav pull-right">
+          <li><a href="/addTask">Add Task</a></li>
 	  <li class="dropdown" id="User Menu">
 	      <a class="dropdown-toggle pull-right" data-toggle="dropdown" href="#User Menu">
                   {{Username}}
                   <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                  <li><a href=Logout>Logout</a></li>
+                  <li><a href=/logout>Logout</a></li>
+                  <li><a href=/addUser>Register</a></li>
               </ul>
           </li>
         </ul>
