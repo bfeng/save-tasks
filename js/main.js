@@ -30,8 +30,24 @@
         initialize: function() {
             _.bindAll(this, 'render');
         },
+    
+        retrieve: function() {
+            var self = this;
+            $.getJSON('/js/data.json', function(data) {
+                var items= [];
+                $.each(data, function(key, val) {
+                    items.push(key + ':' + val);
+                });
+                alert(items);
+                self.render(data);
+            });
+        },
 
-        render: function() {
+        render: function(data) {
+            if(!data) {
+                this.retrieve();
+                return;
+            }
             $(this.el).empty();
             var top_row = $('<div class="row">');
             //top_row.append($('<button class="span2 btn btn-mini btn-primary">').append('Add Task'));
@@ -67,15 +83,11 @@
         }
     });
 
-    //var listView = new ListView();
-
-    $('.dropdown-toggle').dropdown(); 
-
     var AddTask = Backbone.View.extend({
-        el: $('div'),
+        el: $('#add-task-page'),
         initialize: function() {
             _.bindAll(this, 'render');
-            this.render();
+            //this.render();
         },
         
         render: function() {
@@ -93,15 +105,21 @@
         ganttChartShow: function() {
             $('a[href="#add"]').parent().removeClass();
             $('a[href="#gantt"]').parent().addClass('active');
+            $('#add-task-page').empty();
             ganttChart.render();
         },
         addTask: function() {
             $('a[href="#gantt"]').parent().removeClass();
             $('a[href="#add"]').parent().addClass('active');
-            alert('Add Task');
+            $('#gantt-chart').empty();
+            addTask.render();
         }
     });
 
+
+    //var listView = new ListView();
+
+    $('.dropdown-toggle').dropdown(); 
     var navBar = new NavBar();
     var ganttChart = new GanttChart();
     var addTask = new AddTask();
