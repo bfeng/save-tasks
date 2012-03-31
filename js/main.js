@@ -33,8 +33,15 @@
 
         render: function() {
             $(this.el).empty();
-            var progress = $('<div class="progress">');
+            var top_row = $('<div class="row">');
+            //top_row.append($('<button class="span2 btn btn-mini btn-primary">').append('Add Task'));
+            
+
+            var progress = $('<div class="span12 progress">');
             progress.append($('<div class="bar" style="width: 60%">'));
+
+            top_row.append(progress);
+
             var template = $('<table class="table table-bordered">');
             template.append($('<tr>').append('<th>Title</th>').append('<th>Timeline</th>'));
             for(var i=0;i<10;i++) {
@@ -56,7 +63,7 @@
                 row.append(line);
                 template.append(row);
             }
-            $(this.el).append(progress).append(template);
+            $(this.el).append(top_row).append(template);
         }
     });
 
@@ -80,25 +87,21 @@
 
     var AppRouter = Backbone.Router.extend({
         routes: {
-            "gantt":"ganttChartShow"
+            "gantt":"ganttChartShow",
+            "add":"addTask"
         },
         ganttChartShow: function() {
             ganttChart.render();
-        }})
-
-    var TaskRouter = Backbone.Router.extend({
-        routes: {
-            "addTask":"addTaskShow"
         },
-        addTaskShow: function() {
-            addTask.render();
-        }});
+        addTask: function() {
+            alert('Add Task');
+        }
+    });
 
     var navBar = new NavBar();
     var ganttChart = new GanttChart();
     var addTask = new AddTask();
     var app_router = new AppRouter;
-    var task_router = new TaskRouter;
 
     Backbone.history.start();
 })(jQuery);

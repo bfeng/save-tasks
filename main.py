@@ -35,8 +35,7 @@ application = webapp.WSGIApplication([('/', MainPage),
                                       ('/addUser', AddUserPage),
                                       ('/about', About),
                                       ('/logout', About),
-                                      ('/contact', Contact)],
-            debug=True)
+                                      ('/contact', Contact)], debug=True)
 
 def main():
     run_wsgi_app(application)
