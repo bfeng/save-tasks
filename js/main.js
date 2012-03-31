@@ -91,7 +91,7 @@
                 var row = $('<tr>').append(task_view.render(data[i]).el);
                 var line = $('<td width="70%">');
                 
-                var boxes = $('<table width="100%" boder="0">').append($('<tr>'));
+                var boxes = $('<table width="100%" border="0">').append($('<tr>'));
                 
                 var potion = 100/data.length;
                 for(var j=0;j<data.length;j++) {
