@@ -36,7 +36,7 @@
         },
         render:function(data, max, idx) {
             var td1 = $('<td>').attr('width', '30%');
-            td1.append($('<span class="badge">'+data.priority+'</span>'));
+            td1.append($('<span class="badge">'+data.queue+'</span>'));
             td1.append($('<span style="margin-left:2px;margin-right:2px" class="toggle">' + data['title'] + '</span>'));
             td1.append($('<i class="icon-ok" style="display:none;float:right;">'));
 
@@ -104,7 +104,7 @@
                 task_view = new TaskView;
                 var max = 0, idx = 0;
                 for(var j=0;j<data.length;j++) {
-                    if(data[i].priority==data[j].priority) {
+                    if(data[i].queue==data[j].queue) {
                         max++;
                         if(j<i)
                             idx++;

@@ -14,6 +14,9 @@ class TaskList(webapp.RequestHandler):
 
         for a in tasks:
 
+            queue = a.queue
+            if queue is None:
+                queue = 0
             blank.append({
                 'title': a.title,
                 'desc': a.desc,
@@ -21,7 +24,8 @@ class TaskList(webapp.RequestHandler):
                 'due': a.due,
                 'assigner': a.assigner,
                 'assignee': a.assignee,
-                'queue': a.queue})
+                'done': a.done,
+                'queue': queue})
 
         self.response.headers['Content-type'] = 'text/json'
         self.response.out.write(json.dumps(blank))
