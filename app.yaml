@@ -1,0 +1,9 @@
+application: save-tasks
+runtime: python
+version: 1
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /.*
+  script: main.py
